@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Little Princess 💖</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Georgia,serif;
+}
+
+body{
+background:url("bg.jpg") center/cover fixed;
+overflow-x:hidden;
+color:white;
+text-align:center;
+}
+
+.overlay{
+background:rgba(0,0,0,.45);
+min-height:100vh;
+padding:20px;
+}
+
+.page{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.hidden{
+display:none;
+}
+
+h1{
+font-size:42px;
+margin-bottom:15px;
+text-shadow:0 0 12px rgba(255,255,255,.35);
+}
+
+p{
+font-size:20px;
+max-width:360px;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+button{
+padding:14px 30px;
+font-size:18px;
+border:none;
+border-radius:30px;
+background:#ff4da6;
+color:white;
+cursor:pointer;
+margin-top:15px;
+box-shadow:0 0 20px rgba(255,77,166,.5);
+}
+
+.slider{
+width:320px;
+height:420px;
+object-fit:cover;
+border-radius:25px;
+box-shadow:0 15px 30px rgba(0,0,0,.35);
+margin-top:20px;
+background:white;
+}
+
+.card{
+background:rgba(255,255,255,.86);
+color:#111;
+padding:16px;
+border-radius:20px;
+margin-top:15px;
+max-width:340px;
+}
+
+.musicBtn{
+padding:14px 28px;
+border-radius:30px;
+background:#111;
+color:white;
+margin-top:18px;
+cursor:pointer;
+}
+
+.letter{
+background:rgba(255,255,255,.9);
+color:#111;
+padding:25px;
+border-radius:25px;
+max-width:700px;
+line-height:1.9;
+text-align:left;
+font-size:18px;
+}
+
+.heart{
+position:fixed;
+font-size:24px;
+pointer-events:none;
+animation:fly 5s linear forwards;
+}
+
+@keyframes fly{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-850px);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="overlay">
+
+<!-- PASSWORD PAGE -->
+<div id="login" class="page">
+
+<h1>💖 Private Surprise 💖</h1>
+
+<p>Enter password to continue</p>
+
+<input id="pass" type="password" placeholder="Password"
+style="padding:12px;border:none;border-radius:20px;text-align:center;">
+
+<button onclick="checkPass()">Enter</button>
+
+</div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page hidden">
+
+<h1>✨ My Little Princess ✨</h1>
+
+<p>
+Tonight is dedicated to someone beautiful,
+rare and unforgettable...
+</p>
+
+<button onclick="openPage2()">Light It Up 🎂</button>
+
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page hidden">
+
+<h1>Happy Birthday Princess 💖</h1>
+
+<p>The world became brighter because of you ✨</p>
+
+<img id="photo" class="slider" src="photo1.jpg">
+
+<div class="musicBtn" onclick="playMusic()">🎵 Play Our Song</div>
+
+<div class="card">💌 You are my favorite feeling.</div>
+
+<div class="card">🌊 Ocean • Moonlight • Endless Love</div>
+
+<button onclick="gift()">Open Final Gift 🎁</button>
+
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page hidden">
+
+<h1>For You ❤️</h1>
+
+<div class="letter">
+
+Dear Love,<br><br>
+
+Happy Birthday to the most precious person in my life.  
+You are one of the most beautiful blessings I could ever ask for.<br><br>
+
+Your smile brightens days.  
+Your presence heals silence.  
+Your existence makes life softer.<br><br>
+
+You are cute, playful, deep, magical and unforgettable.  
+A rare soul in a loud world.<br><br>
+
+I hope this year gives you happiness, health, success and endless love.<br><br>
+
+And selfishly... I hope it gives me more moments with you.<br><br>
+
+Happy Birthday My Little Princess 💖<br><br>
+
+Forever Yours ❤️
+
+</div>
+
+<button onclick="back()">Back 💖</button>
+
+</div>
+
+</div>
+
+<audio id="song" src="song.mp3" loop></audio>
+
+<script>
+
+const realPass = "Watashi no";
+
+const photos = [
+"photo1.jpg",
+"photo2.jpg",
+"photo3.jpg",
+"photo4.jpg",
+"photo5.jpg"
+];
+
+let i = 0;
+
+function checkPass(){
+let entered = document.getElementById("pass").value;
+
+if(entered === realPass){
+document.getElementById("login").classList.add("hidden");
+document.getElementById("page1").classList.remove("hidden");
+}else{
+alert("Wrong Password 💔");
+}
+}
+
+function openPage2(){
+
+document.getElementById("page1").classList.add("hidden");
+document.getElementById("page2").classList.remove("hidden");
+
+setInterval(()=>{
+i=(i+1)%photos.length;
+document.getElementById("photo").src=photos[i];
+},3000);
+
+setInterval(makeHeart,400);
+
+}
+
+function playMusic(){
+document.getElementById("song").play();
+}
+
+function gift(){
+document.getElementById("page2").classList.add("hidden");
+document.getElementById("page3").classList.remove("hidden");
+window.scrollTo(0,0);
+}
+
+function back(){
+document.getElementById("page3").classList.add("hidden");
+document.getElementById("page2").classList.remove("hidden");
+}
+
+function makeHeart(){
+
+let h=document.createElement("div");
+
+h.innerHTML="💖";
+h.className="heart";
+h.style.left=Math.random()*100+"%";
+h.style.top="100%";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),5000);
+
+}
+
+</script>
+
+</body>
+</html>
